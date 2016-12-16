@@ -13,7 +13,14 @@ public class CartItems
     private int totalItems;
     boolean bogoffEmpty = true;
     boolean btgoffEmpty = true;
-    int totalPrice = 0;
+    int totalPriceWithoutVat = 0;
+    private int vAT;
+    private int totalPriceWithVat;
+
+    public CartItems(int vat)
+    {
+        this.vAT = vat;
+    }
 
     public List<Item> getItemList()
     {
@@ -22,7 +29,9 @@ public class CartItems
 
     public void add(Item item)
     {
-        this.itemList.add(item);
+        if(item.getPrice() >= 0){
+            this.itemList.add(item);
+        }
     }
 
     public void remove(Item item1)
@@ -30,7 +39,7 @@ public class CartItems
         this.itemList.remove(item1);
     }
 
-    public int getTotalPrice()
+    public int getTotalPriceWithoutVat()
     {
         for (Item item : itemList)
         {
@@ -44,8 +53,10 @@ public class CartItems
             }
         }
 
-        return totalPrice;
+        return totalPriceWithoutVat;
     }
+
+
 
     public void checkBogoff(Item item){
         for (Item bogoffItem : Bogoff)
@@ -58,9 +69,11 @@ public class CartItems
         }
         if(bogoffEmpty){
             Bogoff.add(item);
-            totalPrice += item.getPrice();
+            totalPriceWithoutVat += item.getPrice();
+            bogoffEmpty = true;
         }else{
             Bogoff.remove(item);
+            bogoffEmpty = true;
         }
     }
 
@@ -80,15 +93,35 @@ public class CartItems
         }
         if(btgoffEmpty){
             Btgoff.add(item);
-            totalPrice += item.getPrice();
+            totalPriceWithoutVat += item.getPrice();
+            btgoffEmpty = true;
         }else{
             Btgoff.remove(item);
             Btgoff.remove(item);
+            btgoffEmpty = true;
         }
     }
 
     public int getTotalItems()
     {
         return itemList.size();
+    }
+
+    public List<Item> sort(){
+       // sortedByPrice.sort(new PriceComparator());
+        itemList.sort(new PriceComparator());
+        return itemList;
+    }
+
+    public int getvAT()
+    {
+        return vAT;
+    }
+
+
+    public int getTotalPriceWithVat()
+    {
+        totalPriceWithVat = getTotalPriceWithoutVat() * (100 + vAT)/100;
+        return totalPriceWithVat;
     }
 }

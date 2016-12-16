@@ -1,3 +1,7 @@
+import com.sun.org.apache.xerces.internal.impl.dv.ValidatedInfo;
+
+import java.util.Objects;
+
 /**
  * Created by ahmad.alomary on 15/12/2016.
  */
@@ -32,7 +36,7 @@ public class Item
     public Item(String name, int price, String offer)
     {
         this.name = name;
-        this.price = price;
+        setPrice(price);
         this.offer = offer;
     }
 

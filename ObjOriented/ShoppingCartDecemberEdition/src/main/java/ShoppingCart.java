@@ -3,10 +3,10 @@
  */
 public class ShoppingCart
 {
-    CartItems cartItems = new CartItems();
+    CartItems cartItems = new CartItems(20);
 
     public int getTotalPrice(){
-        return cartItems.getTotalPrice();
+        return cartItems.getTotalPriceWithoutVat();
     }
 
     public int getTotalItems(){

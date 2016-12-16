@@ -29,12 +29,11 @@ public class Item
         return result;
     }
 
-    private int quantity;
-
-    public Item(String name, int price)
+    public Item(String name, int price, String offer)
     {
         this.name = name;
         this.price = price;
+        this.offer = offer;
     }
 
     public String getName()
@@ -57,13 +56,13 @@ public class Item
         this.price = price;
     }
 
-    public int getQuantity()
+    public String getOffer()
     {
-        return quantity;
+        return offer;
     }
 
-    public void setQuantity(int quantity)
+    public void setOffer(String offer)
     {
-        this.quantity = quantity;
+        this.offer = offer;
     }
 }

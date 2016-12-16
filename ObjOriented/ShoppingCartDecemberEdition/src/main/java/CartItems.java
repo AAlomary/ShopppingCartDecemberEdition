@@ -8,7 +8,12 @@ public class CartItems
 {
 
     public List<Item> itemList = new ArrayList<Item>();
+    List<Item> Bogoff = new ArrayList<Item>();
+    List<Item> Btgoff = new ArrayList<Item>();
     private int totalItems;
+    boolean bogoffEmpty = true;
+    boolean btgoffEmpty = true;
+    int totalPrice = 0;
 
     public List<Item> getItemList()
     {
@@ -27,28 +32,59 @@ public class CartItems
 
     public int getTotalPrice()
     {
-        List<Item> Bogoff = new ArrayList<Item>();
-        int totalPrice = 0;
-        boolean empty = true;
         for (Item item : itemList)
         {
-            for (Item bogoffItem : Bogoff)
+            if(item.getOffer() == "bogoff")
             {
-                if(bogoffItem.equals(item))
-                {
-                    empty = false;
-                    break;
-                }
+                checkBogoff(item);
             }
-            if(empty){
-                Bogoff.add(item);
-                totalPrice += item.getPrice();
-            }else{
-                Bogoff.remove(item);
+            else if(item.getOffer() == "btgoff")
+            {
+                checkBtgoff(item);
             }
         }
 
         return totalPrice;
+    }
+
+    public void checkBogoff(Item item){
+        for (Item bogoffItem : Bogoff)
+        {
+            if(bogoffItem.equals(item))
+            {
+                bogoffEmpty = false;
+                break;
+            }
+        }
+        if(bogoffEmpty){
+            Bogoff.add(item);
+            totalPrice += item.getPrice();
+        }else{
+            Bogoff.remove(item);
+        }
+    }
+
+    public void checkBtgoff(Item item){
+        int count = 0;
+        for (Item btgoffItem : Btgoff)
+        {
+            if(btgoffItem.equals(item))
+            {
+               count += 1;
+            }
+            if(count == 2)
+            {
+                btgoffEmpty = false;
+                break;
+            }
+        }
+        if(btgoffEmpty){
+            Btgoff.add(item);
+            totalPrice += item.getPrice();
+        }else{
+            Btgoff.remove(item);
+            Btgoff.remove(item);
+        }
     }
 
     public int getTotalItems()

@@ -12,7 +12,7 @@ public class TestCartItems
     public void shouldAddItemToList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
+        Item item = new Item("Apple", 1,"bogoff");
 
         cartItems.add(item);
         // Then
@@ -23,7 +23,7 @@ public class TestCartItems
     public void shouldRandomAddItemToList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
+        Item item = new Item("Apple", 1, "bogoff");
 
         cartItems.remove(item);
         cartItems.add(item);
@@ -37,9 +37,9 @@ public class TestCartItems
     public void shouldAddMultipleItemsToTheList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
-        Item item1 = new Item("Appl", 2);
-        Item item2 = new Item("App", 3);
+        Item item = new Item("Apple", 1, "bogoff");
+        Item item1 = new Item("Appl", 2, "bogoff");
+        Item item2 = new Item("App", 3, "bogoff");
 
         cartItems.add(item);
         cartItems.add(item1);
@@ -55,9 +55,9 @@ public class TestCartItems
     public void shouldRemoveNonExistingItemFromList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
-        Item item1 = new Item("Appl", 2);
-        Item item2 = new Item("App", 3);
+        Item item = new Item("Apple", 1, "bogoff");
+        Item item1 = new Item("Appl", 2, "bogoff");
+        Item item2 = new Item("App", 3, "bogoff");
 
         cartItems.add(item);
         cartItems.add(item1);
@@ -76,9 +76,9 @@ public class TestCartItems
     public void shouldGetTotalItemPriceFromList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
-        Item item1 = new Item("Appl", 2);
-        Item item2 = new Item("App", 3);
+        Item item = new Item("Apple", 1, "bogoff");
+        Item item1 = new Item("Appl", 2, "bogoff");
+        Item item2 = new Item("App", 3, "bogoff");
 
         cartItems.add(item);
         cartItems.add(item1);
@@ -95,9 +95,9 @@ public class TestCartItems
     public void shouldGetTotalNumberOffItemsFromList() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 1);
-        Item item1 = new Item("Appl", 2);
-        Item item2 = new Item("App", 3);
+        Item item = new Item("Apple", 1, "bogoff");
+        Item item1 = new Item("Appl", 2, "bogoff");
+        Item item2 = new Item("App", 3, "bogoff");
 
         cartItems.add(item);
         cartItems.add(item1);
@@ -113,8 +113,8 @@ public class TestCartItems
     public void shouldImplementBogoff() {
         // When
         CartItems cartItems = new CartItems();
-        Item item = new Item("Apple", 2);
-        Item item1 = new Item("Apple", 2);
+        Item item = new Item("Apple", 2, "bogoff");
+        Item item1 = new Item("Apple", 2, "bogoff");
 
         cartItems.add(item);
         cartItems.add(item1);
@@ -125,4 +125,21 @@ public class TestCartItems
         assertEquals(2, totalPrice);
     }
 
+    @Test
+    public void shouldImplementBtgoff() {
+        // When
+        CartItems cartItems = new CartItems();
+        Item item = new Item("orange", 3, "btgoff");
+        Item item1 = new Item("orange", 3, "btgoff");
+        Item item2 = new Item("orange", 3, "btgoff");
+
+        cartItems.add(item);
+        cartItems.add(item1);
+        cartItems.add(item2);
+
+        int totalPrice = cartItems.getTotalPrice();
+        // Then
+
+        assertEquals(6, totalPrice);
+    }
 }

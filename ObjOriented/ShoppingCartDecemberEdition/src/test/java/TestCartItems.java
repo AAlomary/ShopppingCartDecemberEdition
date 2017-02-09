@@ -284,8 +284,30 @@ public class TestCartItems
         cartItems.add(item3);
         cartItems.add(item4);
 
-        int totalPricewithVat = cartItems.getTotalPriceWithVat();
+        cartItems.getTotalPriceWithoutVat();
+        int totalPriceWithVat = cartItems.getTotalPriceWithVat();
 
-        assertEquals(totalPricewithVat, 20);
+        assertEquals(21, totalPriceWithVat);
+        // Repeat call should return same value
+        assertEquals(cartItems.getTotalPriceWithVat(), 21);
+    }
+
+    @Test
+    public void shouldTotalVatPricePayable(){
+        Item item = new Item("orange", 5, "btgoff");
+        Item item1 = new Item("orange", 5, "btgoff");
+        Item item2 = new Item("orange", 5, "btgoff");
+        Item item3 = new Item("Apple", 3, "btgoff");
+        Item item4 = new Item("Banana", 4, "btgoff");
+
+        cartItems.add(item);
+        cartItems.add(item1);
+        cartItems.add(item2);
+        cartItems.add(item3);
+        cartItems.add(item4);
+
+        int totalVatPayable = cartItems.getTotalVATPayable();
+
+        assertEquals(3, totalVatPayable);
     }
 }
